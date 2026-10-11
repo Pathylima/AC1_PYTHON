@@ -1,0 +1,48 @@
+RESULTADOS DOS TESTES — API DE LOGS
+
+1. TESTES COM UNITTEST
+
+Objetivo: verificar as funções de gravação e leitura dos logs, incluindo criação do arquivo, preservação do histórico, mensagens duplicadas, caracteres especiais e tratamento de erros.
+
+Resultado previsto da execução: 
+
+Comando executado:
+python -m unittest discover tests -p "test_log_service_unittest.py" -v
+
+test_cria_arquivo_ao_gravar (tests.test_log_service_unittest.TestLogService) ... ok
+test_acrescenta_registros_em_ordem (tests.test_log_service_unittest.TestLogService) ... ok
+test_permite_mensagens_duplicadas (tests.test_log_service_unittest.TestLogService) ... ok
+test_le_arquivo_inexistente (tests.test_log_service_unittest.TestLogService) ... ok
+test_le_arquivo_vazio (tests.test_log_service_unittest.TestLogService) ... ok
+test_preserva_caracteres_especiais (tests.test_log_service_unittest.TestLogService) ... ok
+test_preserva_registros_apos_reabrir_arquivo (tests.test_log_service_unittest.TestLogService) ... ok
+test_destino_invalido_gera_erro (tests.test_log_service_unittest.TestLogService) ... ok
+test_u8_origem_leitura_inacessivel (tests.test_log_service_unittest.TestLogService) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.008s
+
+OK
+
+2. TESTES DA API (pytest)
+
+Objetivo: verificar os endpoints POST /logs e GET /logs, os códigos de resposta, as validações de entrada, a persistência dos registros e o tratamento de falhas de leitura e gravação.
+
+Resultado previsto da execução: 
+
+Comando executado:
+python -m pytest tests/test_api_pytest.py -v
+
+============================= test session starts ==============================
+collected 8 items
+
+tests/test_api_pytest.py::test_p1_get_inicial PASSED                    [ 12%]
+tests/test_api_pytest.py::test_p2_post_valido PASSED                    [ 25%]
+tests/test_api_pytest.py::test_p3_dois_posts_e_um_get PASSED            [ 37%]
+tests/test_api_pytest.py::test_p4_post_repetido PASSED                  [ 50%]
+tests/test_api_pytest.py::test_p5_mensagem_invalida_e_limites PASSED    [ 62%]
+tests/test_api_pytest.py::test_p6_nivel_invalido PASSED                 [ 75%]
+tests/test_api_pytest.py::test_p7_campo_obrigatorio_ausente PASSED      [ 87%]
+tests/test_api_pytest.py::test_p8_falha_io_api PASSED                   [100%]
+
+============================== 8 passed in 0.45s ===============================
